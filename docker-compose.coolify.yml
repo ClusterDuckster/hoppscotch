@@ -10,6 +10,8 @@ services:
       target: backend
     env_file:
       - ./.env
+    environment:
+      - DATABASE_URL=postgresql://${HOPPSCOTCH_POSTGRES_USER}:${HOPPSCOTCH_POSTGRES_PASSWORD}@hoppscotch-db:5432/${HOPPSCOTCH_POSTGRES_DB}
     restart: always
     volumes:
       # Uncomment the line below when modifying code. Only applicable when using the "dev" target.
@@ -62,9 +64,7 @@ services:
   hoppscotch-db:
     image: postgres:15
     environment:
-      # The default user defined by the docker image
       POSTGRES_USER: ${HOPPSCOTCH_POSTGRES_USER}
-      # NOTE: Please UPDATE THIS PASSWORD!
       POSTGRES_PASSWORD: ${HOPPSCOTCH_POSTGRES_PASSWORD}
       POSTGRES_DB: ${HOPPSCOTCH_POSTGRES_DB}
     healthcheck:
